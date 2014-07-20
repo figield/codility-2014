@@ -1,0 +1,78 @@
+// the missing element is the difference
+    return (1 + N + 1)*(N+1)/2 - sum;
+// Suma liczb od 1 do n: n(n+1)/2
+
+int solution(int N){
+  for(int i=(int)sqrt(N); i >= 1;i--) 
+    if (N % i ==0) return 2 * (i + (int)(N/i));
+
+
+for(i=2; (LUI)i*i < (LUI)N;i++) 
+    if (N % i == 0) count+=2;
+  if ((LUI)i*i == (LUI)N) count++;
+
+// Sieve of Eratosthenes
+vector<int> generatePrimes(int N){  
+  vector<int> NumbersSieve(N+1,1);
+  NumbersSieve[0]=0;
+  NumbersSieve[1]=0;
+  for (int i = 2; i*i<=N; i++)
+    if( NumbersSieve[i])      
+      for(int k = i * i; k<=N; ){
+        NumbersSieve[k]=0;
+        k += i;
+      }
+  vector<int> Primes;
+  for(int i=2; i<N+1;i++)
+    if(NumbersSieve[i]) Primes.push_back(i);
+  return Primes;
+}
+
+// Euclidean algorithm
+int gcd(int a, int b) {
+  if(a < b) return gcd(b, a);
+  if(a % b == 0) return b;
+  return gcd(b, a % b );
+}
+
+// Least common multiple // najmniejsza wspólna wieloktrotność
+a*b / gcd(a,b).
+
+// merge sort?
+
+
+vector<int> fibonacciDynamic(int N) {
+  vector<int> Fib(2, 0);
+  Fib[1]= 1;
+  for (int i=2; i<N+2; i++){
+    Fib.push_back(Fib[i-1] + Fib[i-2]);  
+    //if (Fib[i]>=N) break;
+  }
+  return Fib;
+}
+
+
+Results[i] = FibonacciTab[A[i] + 1] & ((1 << B[i]) - 1);      
+== OR % 2^B[i]  OR % (1<<B[i])
+
+
+// CountTrianles
+int solution(const vector<int> &A) {
+  int Asize = A.size();
+  if (Asize < 3) return 0;
+  vector <int> T(A);
+  sort(T.begin(), T.end());
+  int result = 0;
+  for (int x = 0; x<Asize-2; x++){
+    int z = x+2;
+    for (int y= x+1; y<Asize-1; y++){
+      while((z < Asize) && (T[x] + T[y] - T[z] > 0))
+        z+=1;
+      result += z - y - 1;
+    }
+  }
+  return result;
+}
+
+
+int range = (int)(log((long double) K) / log(2)) + 1;

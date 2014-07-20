@@ -1,0 +1,69 @@
+/*
+A string S consisting of N characters is called properly nested if:
+S is empty;
+S has the form "(U)" where U is a properly nested string;
+S has the form "VW" where V and W are properly nested strings.
+For example, string "(()(())())" is properly nested but string "())" isn't.
+Write a function:
+int solution(const string &S);
+that, given a string S consisting of N characters, returns 1 if string S is properly nested and 0 otherwise.
+For example, given S = "(()(())())", the function should return 1 and given S = "())", the function should return 0, as explained above.
+Assume that:
+N is an integer within the range [0..1,000,000];
+string S consists only of the characters "(" and/or ")".
+Complexity:
+expected worst-case time complexity is O(N);
+expected worst-case space complexity is O(1) (not counting the storage required for input arguments).
+*/
+ 
+#include <fstream>
+#include <iostream>
+#include <sstream> 
+//-----------------------------------------------------------------------------------
+#include <stdlib.h>
+#include <stack>
+using namespace std;
+
+int solution(const string &S) {
+  int size = S.size();
+  // if the string is empty
+  if (size == 0) return 1;
+  
+  // create a stack to store the open brackets
+  stack<char> openBrackets;
+  
+  for (int i = 0; i < size; ++i){
+    if (S[i] == '(') 
+      openBrackets.push(S[i]);
+    else {
+      // if there are no open brackets from the beginning
+      if(openBrackets.empty())  return 0;
+      char topChar = openBrackets.top();  
+      if(S[i] == ')' && topChar == '(')
+        openBrackets.pop();  
+      else return 0;
+    }  
+  }
+  return openBrackets.empty() ? 1 : 0;
+}
+
+//-----------------------------------------------------------------------------------
+
+int main(int argc,char *argv[]){
+  if(argc < 2) {
+    printf("You must provide at least one argument\n");
+    exit(0);
+  }
+  string line;
+  ifstream file;
+  file.open(argv[1]);  
+  
+  while(getline(file, line)){
+    istringstream iss(line);
+    string S;
+    iss >> S;
+    cout << "Size:"<< S.size() << endl << S << endl;
+    cout << "Result:"<< solution(S) << endl;
+  }
+  return 0;
+}
